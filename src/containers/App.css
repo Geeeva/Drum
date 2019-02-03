@@ -8,205 +8,181 @@
     font-family: "RobotoRegular", "Helvetica Neue", sans-serif;
 }
 
+body {
+    background-color: #CDCCC8;
+}
+
 p {
     color: #999;
 }
 
 .container-fluid {
-    padding-right: 0px;
-    padding-left: 0px;
+    padding-right: 15px;
+    padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
 }
 
 .container {
-    padding-right: 0px;
-    padding-left: 0px;
+    padding-right: 15px;
+    padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
     max-width: 100%;
 }
 
-.container {
-    display: flex;
-    justify-content: space-between;
+.DrumWrapper {
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+    justify-items: center;
+    align-items: center;
 }
 
-.add-product,
-.list-products,
-.shopping-cart {
-    width: 33.33%;
-    height: 100vh;
-    overflow: scroll;
+.Drum {
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-template-rows: 33.3% 33.3% 33.3%;
+    justify-items: center;
+    align-items: center;
+    color: #fff;
+    border: #fff 1px solid;
 }
 
-.add-product {
-    padding: 30px;
+.Drum div {
+    padding: 50px;
+    cursor: pointer;
+    transition: background-color .3s ease-in-out;
 }
 
-.add-product form div {
-    margin-bottom: 15px;
+.Drum div:hover, .Drum div:focus {
+     background-color: salmon;
 }
 
-.add-product label {
+.Controlls {
+    text-align: center;
+}
+
+.PowerWrapper {
     display: block;
-    margin-bottom: 5px;
-    font-size: 12px;
-    letter-spacing: 1.5px;
+    padding-bottom: 50px;
 }
 
-.add-product input,
-.add-product textarea {
-    width: 100%;
-    border: 1px solid #eee;
-    background: #fff;
-    border-radius: 3px;
-    padding: 8px;
-    font-size: 14px;
-    outline: none;
-    letter-spacing: .5px;
-    color: #999;
-    text-transform: capitalize;
-}
+/*Switch*/
 
-.add-product button {
-    width: 100%;
-    border: none;
-    border-radius: 3px;
-    margin-top: 15px;
-    background: #0A9CE9;
-    color: #fff;
-    padding: 10px 0;
-    cursor: pointer;
-    font-weight: 100;
-}
-
-.list-products {
-    padding: 30px;
-    background: #F6F7F9;
-}
-
-.product {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08);
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.product img {
-    width: 60%;
-}
-
-.product p {
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #999;
-}
-
-.details-button,
-.buy-button,
-.shopping-cart-summary button {
-    width: 100%;
-    margin: 5px 0;
-    padding: 5px;
-    border-radius: 3px;
-    border: 1px solid #eee;
-    color: #999;
-    font-weight: 100;
-    letter-spacing: 1px;
-    cursor: pointer;
-}
-
-.details-button:hover,
-.buy-button:hover {
-    transition: opacity .3s ease-in;
-    opacity: .7;
-}
-
-.details-button {
-    background: transparent;
-}
-
-.buy-button,
-.shopping-cart-summary button {
-    background: #44E19F;
-    color: #fff;
-    border: none;
-}
-
-.shopping-cart {
-    position: relative;
-    padding: 20px;
-}
-
-.shopping-cart-product {
-    margin-bottom: 10px;
-}
-
-.product-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    width: 100%;
-    box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08);
-    border-radius: 3px;
-}
-
-.product-info img {
-    width: 80px;
-    height: 80px;
-}
-
-.product-info div h3 {
-    font-weight: 100;
-    margin-bottom: -10px;
-    color: #999;
-}
-.product-info div h3:first-letter {
-    text-transform: capitalize;
-}
-
-.product-count {
+.switch {
     display: inline-block;
-    background: #fff;
-    padding: 10px;
-    box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08);
-    margin-top: -30px;
-}
-
-.product-count button {
-    cursor: pointer;
-    color: #999;
-    background: transparent;
-    border: 1px solid #eee;
-    border-radius: 3px;
-}
-
-.shopping-cart-summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid #eee;
-    padding-top: 10px;
-    margin-top: 20px;
+    background-color: #ccc;
+    height: 35px;
+    width: 60px;
     position: relative;
 }
 
-.shopping-cart-summary button {
-    padding: 10px;
+.bank {
+    display: inline-block;
+    background-color: #ccc;
+    height: 35px;
+    width: 60px;
+    position: relative;
+}
+
+.switch input {
+    opacity: 0;
+}
+
+.bank input {
+    opacity: 0;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+    background-color: salmon;
+}
+
+.slider:after {
+    content: '';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    top: 5px;
+    left: 5px;
+    background-color: white;
+    transition: transform 0.3s;
+}
+
+.switch input:checked ~ .slider:after {
+    content: '';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    transform: translateX(25px);
+}
+
+.bank input:checked ~ .slider:after {
+    content: '';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    transform: translateX(25px);
+}
+
+input:checked + .slider {
+    background-color: lightgreen;
+}
+
+.SoundName {
+    width: 200px;
+    text-align: center;
+    background-color: lightgrey;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-bottom: 50px;
 }
 
 
-@media screen and (max-width: 479px) {
+@media (min-width: 768px) {
     .container {
-        padding-left: 0px;
-        padding-right: 0px;
+        width: 750px;
     }
 }
+
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 1200px){
+    .container {
+        width: 1170px;
+    }
+}
+
+@media screen and (max-width: 1252px) {
+
+}
+
+/*** Start of large tablet styles ***/
+@media screen and (max-width: 991px) {
+    .container-fluid {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+    .container {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+}
+
+/*** Start of medium tablet styles ***/
+@media screen and (max-width: 768px) {
+
+}
+

@@ -1,321 +1,252 @@
 import React, { Component } from 'react';
-import EnteredWatch from '.././components/EnteredWatch/EnteredWatch';
-import SelectedWatch from '.././components/SelectedWatch/SelectedWatch';
-import Modal from '.././components/UI/Modal/ModalTotalAmount';
 import './App.css';
+import Keypress from '.././components/Keypress/Keypress';
 import 'normalize.css';
 
 class App extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
-            watchName: '',
-            watchDescription: '',
-            watchUrl: '',
-            watchPrice: '',
-            watchId: '',
-            watchAmount: '',
-            watchQuantity: 1, 
-            enteredWatchList: [],
-            selectedWatchName: '',
-            selectedWatchDescription: '',
-            selectedWatchUrl: '',
-            selectedWatchPrice: '',
-            selectedWatchId: '',
-            selectedWatchAmount: '', 
-            selectedWatchQuantity: 1,
-            selectedWatchList: [],
-            activeIndex: '',
-            tooltiptext: false, 
-            totalAmount: 0,
-            showModal: false
+            drumStatus: false,
+            drumType: true, 
+            currentKey: [],
+            currentId: '',
+            bank: [{
+                keyCode: 81,
+                keyTrigger: 'Q',
+                id: 'Heater-1',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3'
+            }, {
+                keyCode: 87,
+                keyTrigger: 'W',
+                id: 'Heater-2',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3'
+            }, {
+                keyCode: 69,
+                keyTrigger: 'E',
+                id: 'Heater-3',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3'
+            }, {
+                keyCode: 65,
+                keyTrigger: 'A',
+                id: 'Heater-4',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3'
+            }, {
+                keyCode: 83,
+                keyTrigger: 'S',
+                id: 'Clap',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3'
+            }, {
+                keyCode: 68,
+                keyTrigger: 'D',
+                id: 'Open-HH',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3'
+            }, {
+                keyCode: 90,
+                keyTrigger: 'Z',
+                id: "Kick-n'-Hat",
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3'
+            }, {
+                keyCode: 88,
+                keyTrigger: 'X',
+                id: 'Kick',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3'
+            }, {
+                keyCode: 67,
+                keyTrigger: 'C',
+                id: 'Closed-HH',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3'
+            }], 
+
+            bankOne:[{
+                keyCode: 81,
+                keyTrigger: 'Q',
+                id: 'Heater-1',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3'
+            }, {
+                keyCode: 87,
+                keyTrigger: 'W',
+                id: 'Heater-2',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3'
+            }, {
+                keyCode: 69,
+                keyTrigger: 'E',
+                id: 'Heater-3',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3'
+            }, {
+                keyCode: 65,
+                keyTrigger: 'A',
+                id: 'Heater-4',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3'
+            }, {
+                keyCode: 83,
+                keyTrigger: 'S',
+                id: 'Clap',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3'
+            }, {
+                keyCode: 68,
+                keyTrigger: 'D',
+                id: 'Open-HH',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3'
+            }, {
+                keyCode: 90,
+                keyTrigger: 'Z',
+                id: "Kick-n'-Hat",
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3'
+            }, {
+                keyCode: 88,
+                keyTrigger: 'X',
+                id: 'Kick',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3'
+            }, {
+                keyCode: 67,
+                keyTrigger: 'C',
+                id: 'Closed-HH',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3'
+            }],
+
+                bankTwo : [{
+                keyCode: 81,
+                keyTrigger: 'Q',
+                id: 'Chord-1',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3'
+            }, {
+                keyCode: 87,
+                keyTrigger: 'W',
+                id: 'Chord-2',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_2.mp3'
+            }, {
+                keyCode: 69,
+                keyTrigger: 'E',
+                id: 'Chord-3',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_3.mp3'
+            }, {
+                keyCode: 65,
+                keyTrigger: 'A',
+                id: 'Shaker',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3'
+            }, {
+                keyCode: 83,
+                keyTrigger: 'S',
+                id: 'Open-HH',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Dry_Ohh.mp3'
+            }, {
+                keyCode: 68,
+                keyTrigger: 'D',
+                id: 'Closed-HH',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3'
+            }, {
+                keyCode: 90,
+                keyTrigger: 'Z',
+                id: 'Punchy-Kick',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3'
+            }, {
+                keyCode: 88,
+                keyTrigger: 'X',
+                id: 'Side-Stick',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/side_stick_1.mp3'
+            }, {
+                keyCode: 67,
+                keyTrigger: 'C',
+                id: 'Snare',
+                url: 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3'
+            }],
+            isChecked: false,
+            isBank1: true
         }
     }
 
-    submitHandler = (event) => {
+    soundDetectionHandler = (event) => {
 
-        event.preventDefault();
+        let currentKey = this.state.bank.filter((el, key) => {
+            console.log(key);
+            return el.id === event.target.id
+        })
+
+        let id = ''; 
         
-        let watchName = this.state.watchName;
-        let watchDescription = this.state.watchDescription;
-        let watchUrl = this.state.watchUrl;
-        let watchPrice = this.state.watchPrice;
-        let watchQuantity = 1;
-        let watchAmount = watchPrice * watchQuantity;
-        let watchId = Math.floor((Math.random() * 100) + 1);
+        currentKey.forEach(element => {
+            return id = element.id;
+        })
 
-        this.setState({
-            enteredWatchList: this.state.enteredWatchList.concat({watchName, watchUrl, watchDescription, watchPrice, watchQuantity, watchAmount, watchId})
+        this.setState ({
+            currentKey: currentKey,
+            currentId: id
         })
     }
-     
-    add = (selectedWatchName, selectedWatchUrl, selectedWatchDescription, selectedWatchPrice, selectedWatchQuantity, selectedWatchAmount, selectedWatchId) => {
-        //console.log(this.state.selectedWatchList);
-        let arr = this.state.selectedWatchList;
 
-        let found = arr.some(el => {
-            return el.selectedWatchName === selectedWatchName;
-        });
-        //console.log(found);
-        if (!found) { 
-            let selectedWatchAmount = selectedWatchPrice * selectedWatchQuantity;
-            return arr.concat({selectedWatchName, selectedWatchUrl, selectedWatchDescription, selectedWatchPrice, selectedWatchQuantity, selectedWatchAmount, selectedWatchId});
+    audioActivationHandler = () => {
+        if(this.state.isChecked === true) {
+            document.getElementsByClassName("player").play();
+        }
+    }
+
+    powerHandler = () => {
+        this.setState({
+            isChecked: !this.state.isChecked
+        })
+    }
+
+    bankSwitchHandler = () => {
+        this.setState({
+            isBank1: !this.state.isBank1
+        })
+
+        if(this.state.isBank1 === true) {
+            this.setState({
+                bank: this.state.bankOne
+            })
         } else {
-            return this.state.selectedWatchList;
-        }
-        console.log(arr);
-    }
-
-    buyWatchHandler = (selectedWatchName, selectedWatchUrl, selectedWatchDescription, selectedWatchPrice, selectedWatchQuantity, selectedWatchAmount, selectedWatchId) => {
-
-        let arr = this.add(selectedWatchName, selectedWatchUrl, selectedWatchDescription, selectedWatchPrice, selectedWatchQuantity, selectedWatchAmount, selectedWatchId);
-        
-        this.setState({
-            selectedWatchList: arr
-        });
-        console.log(this.state.selectedWatchList);
-    }
-
-    increaseAmountHandler = (watchId, indexOfObject, watchQuantity, watchAmount) => {
-
-        if(watchQuantity < 1) {
-            let updatedWatchListObject = this.state.selectedWatchList[indexOfObject];
-            updatedWatchListObject.selectedWatchQuantity = 0;
-            updatedWatchListObject.selectedWatchAmount = 0;
-            let updatedWatchList = this.state.selectedWatchList;
-            updatedWatchList.splice(indexOfObject, 1, updatedWatchListObject);
-            
             this.setState({
-                activeIndex: indexOfObject,
-                tooltiptext: false, 
-                selectedWatchList: updatedWatchList
-            });
-            return;
-
-        } else if (watchQuantity >= 10){
-            let updatedWatchListObject = this.state.selectedWatchList[indexOfObject];
-            updatedWatchListObject.selectedWatchQuantity = 10;
-            updatedWatchListObject.selectedWatchAmount = this.state.selectedWatchList[indexOfObject].selectedWatchPrice * this.state.selectedWatchList[indexOfObject].selectedWatchQuantity;
-            let updatedWatchList = this.state.selectedWatchList;
-            updatedWatchList.splice(indexOfObject, 1, updatedWatchListObject);
-
-            this.setState({
-                activeIndex: indexOfObject,
-                tooltiptext: true,
-                selectedWatchList: updatedWatchList
-            });
-            return;
-        }
-
-        let updatedWatchListObject = this.state.selectedWatchList[indexOfObject];
-        updatedWatchListObject.selectedWatchQuantity = this.state.selectedWatchList[indexOfObject].selectedWatchQuantity + 1;
-        updatedWatchListObject.selectedWatchAmount = this.state.selectedWatchList[indexOfObject].selectedWatchPrice * this.state.selectedWatchList[indexOfObject].selectedWatchQuantity;
-        let updatedWatchList = this.state.selectedWatchList;
-        updatedWatchList.splice(indexOfObject, 1, updatedWatchListObject);
-
-        this.setState({
-            activeIndex: indexOfObject,
-            selectedWatchList: updatedWatchList
-        })
-        let totalAmount = this.state.selectedWatchList.reduce((accumulator, el) => {
-            return accumulator + el.selectedWatchAmount;
-        },0);
-
-        this.setState({
-            activeIndex: indexOfObject,
-            tooltiptext: false,
-            totalAmount : totalAmount,
-        })
-    }
-
-    decreaseAmountHandler = (watchId, indexOfObject, watchQuantity, watchAmount) => {
-
-        if(watchQuantity < 1) {
-            let updatedWatchListObject = this.state.selectedWatchList[indexOfObject];
-            updatedWatchListObject.selectedWatchQuantity = 0;
-            updatedWatchListObject.selectedWatchAmount = 0;
-            let updatedWatchList = this.state.selectedWatchList;
-            updatedWatchList.splice(indexOfObject, 1, updatedWatchListObject);
-            
-            this.setState({
-                activeIndex: indexOfObject,
-                selectedWatchList: updatedWatchList
-            });
-            let totalAmount = this.state.selectedWatchList.reduce((accumulator, el) => {
-            return accumulator + el.selectedWatchAmount;},0);
-
-            this.setState({
-                activeIndex: indexOfObject,
-                tooltiptext: true,
-                totalAmount : totalAmount
-            })
-            return;
-
-        } else if (watchQuantity >= 10){
-            let updatedWatchListObject = this.state.selectedWatchList[indexOfObject];
-            updatedWatchListObject.selectedWatchQuantity = 9;
-            updatedWatchListObject.selectedWatchAmount = this.state.selectedWatchList[indexOfObject].selectedWatchPrice * this.state.selectedWatchList[indexOfObject].selectedWatchQuantity;
-            let updatedWatchList = this.state.selectedWatchList;
-            updatedWatchList.splice(indexOfObject, 1, updatedWatchListObject);
-
-            this.setState({
-                activeIndex: indexOfObject,
-                selectedWatchList: updatedWatchList,
-                tooltiptext: false
-            });
-            let totalAmount = this.state.selectedWatchList.reduce((accumulator, el) => {
-                return accumulator + el.selectedWatchAmount;
-            },0);
-
-            this.setState({
-                activeIndex: indexOfObject,
-                tooltiptext: false, 
-                totalAmount : totalAmount
-            })
-            return;
-        }
-
-        let updatedWatchListObject = this.state.selectedWatchList[indexOfObject];
-        updatedWatchListObject.selectedWatchQuantity = this.state.selectedWatchList[indexOfObject].selectedWatchQuantity - 1;
-        updatedWatchListObject.selectedWatchAmount = this.state.selectedWatchList[indexOfObject].selectedWatchPrice * this.state.selectedWatchList[indexOfObject].selectedWatchQuantity;
-        let updatedWatchList = this.state.selectedWatchList;
-        updatedWatchList.splice(indexOfObject, 1, updatedWatchListObject);
-
-        this.setState({
-            selectedWatchList: updatedWatchList,
-            activeIndex: indexOfObject
-        })
-
-        let totalAmount = this.state.selectedWatchList.reduce((accumulator, el) => {
-            return accumulator + el.selectedWatchAmount;
-        },0);
-
-        this.setState({
-            activeIndex: indexOfObject,
-            totalAmount : totalAmount
-        })
-    }
-
-    summaryHandler = () => {
-
-        if(this.state.totalAmount > 0) {
-            this.setState({
-                showModal: true
+                bank: this.state.bankTwo
             })
         }
-    }
-    
-    closingHandler = () => {
-        
-        this.setState({
-            showModal: false
-        })
-    }
+    } 
 
-    render() {
-
-        /*src="https://sc02.alicdn.com/kf/HTB1gHRfg6uhSKJjSspmq6AQDpXaI/Accept-Sample-Design-Your-Own-Blank-Wrist.jpg_350x350.jpg"*/
-        const enteredWatches = this.state.enteredWatchList.map((enteredWatch, index) => {          
-            let startQuantity = 1;
-            return <EnteredWatch
-                key={index}
-                startQuantity={startQuantity}
-                enteredWatch={enteredWatch}
-                selected={this.buyWatchHandler.bind(this, enteredWatch.watchName, enteredWatch.watchUrl,
-                    enteredWatch.watchDescription, enteredWatch.watchPrice, startQuantity, enteredWatch.watchId)}
+    render () {
+  
+            const bank = this.state.bank.map((keypress, key) => {
+                return <Keypress
+                    key={keypress.keyCode}
+                    keypress={keypress}
+                    soundDetection={this.soundDetectionHandler}
+                    activated={this.audioActivationHandler}
                 />
-        });
+            })
 
-        const selectedWatches = this.state.selectedWatchList.map((selectedWatch, index) => {
-            const active = this.state.activeIndex;
-            const tooltiptext = this.state.tooltiptext;
-            return <SelectedWatch
-                key={index}
-                active={index === active} 
-                tooltiptext={tooltiptext}
-                selectedWatch={selectedWatch}
-                onClickIncrement={() => {this.increaseAmountHandler(selectedWatch.selectedWatchId, index, selectedWatch.selectedWatchQuantity, selectedWatch.selectedWatchPrice);}} 
-                onClickDecrement={() => {this.decreaseAmountHandler(selectedWatch.selectedWatchId, index, selectedWatch.selectedWatchQuantity, selectedWatch.selectedWatchPrice);}}  
-            />
-        });
-
-        return (
+        return ( 
             <div className="App">
-            	<div className="container-fluid">
+                <div className="container-fluid">
                     <div className="container">
-                        <div className="add-product">
-                           <form>
-                                <div>
-                                    <label>Product name:</label>
-                                    <input 
-                                        type="text" 
-                                        placeholder="Casio Watch" 
-                                        required
-                                        value={this.state.watchName}
-                                        onChange={event => this.setState({watchName: event.target.value})}
-                                    />
-                                </div>
-                             
-                                <div>
-                                    <label>Product description:</label>
-                                    <textarea 
-                                        placeholder="Sample description..."
-                                        value={this.state.watchDescription}
-                                        onChange={event => this.setState({watchDescription: event.target.value})}
-                                    >
-                                    </textarea>
-                                </div>
-                             
-                                <div>
-                                    <label>Product image:</label>
-                                    <input 
-                                        type="text" 
-                                        placeholder="http://...jpg"
-                                        value={this.state.watchUrl}
-                                        pattern="https?://.+" required
-                                        onChange={event => this.setState({watchUrl: event.target.value})}
-                                    />
-                                </div>
-                             
-                                <div>
-                                    <label>Product price:</label>
-                                    <input 
-                                        type="number" 
-                                        min="0" 
-                                        placeholder="33" 
-                                        value={this.state.watchPrice}
-                                        onChange={event => this.setState({watchPrice: event.target.value})}
-                                    />
-                                </div>
-                             
-                                <button
-                                    type="submit"
-                                    onClick={event => this.submitHandler(event)}
-                                >
-                                    Add a new Task
-                                </button>
-                            </form>
-                         </div>
-                         
-                         <div className="list-products">
-                            {enteredWatches}
-                        </div>
-                         
-                        <div className="shopping-cart">
-                            <div className="shopping-cart-products">
-                                {selectedWatches}
+                        <div className="DrumWrapper">
+                            <div className="Drum">
+                                {bank}
                             </div>
-                            <div className="shopping-cart-summary">
-                                <div>Total: <b>${this.state.totalAmount}</b></div>
-                                <div><button onClick={this.summaryHandler}>Purchase</button></div>
-                                <Modal showModal={this.state.showModal} watch={this.props.enteredWatch} closing={this.closingHandler}/>
+                            <div className="Controlls">
+                                <div className="PowerWrapper">
+                                    <div>Power</div>
+                                    <label className="switch">
+                                        <input type="checkbox" onChange={this.powerHandler}/>
+                                        <span className="slider"></span>
+                                    </label>
+                                </div>
+                                <div className="SoundName">
+                                    {this.state.currentId}
+                                </div>
+
+                                <div className="BankWrapper">
+                                    <div>Bank</div>
+                                    <label className="switch">
+                                        <input type="checkbox" onChange={this.bankSwitchHandler}/>
+                                        <span className="slider"></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>     
             </div>
-        );
+        )
     }
 }
 
