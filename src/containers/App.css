@@ -53,11 +53,12 @@ p {
 .Drum div {
     padding: 50px;
     cursor: pointer;
-    transition: background-color .3s ease-in-out;
+    transition: color .3s ease-in-out, background-color .3s ease-in-out;
 }
 
 .Drum div:hover, .Drum div:focus {
-     background-color: salmon;
+    color: #000;
+    background-color: salmon;
 }
 
 .Controlls {
