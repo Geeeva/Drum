@@ -152,40 +152,54 @@ class App extends Component {
                 url: 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3'
             }],
             isChecked: false,
+            valueRange: 100,
             isBank1: true
         }
     }
 
+    /*Detects the sound based on event.target element*/
+
     soundDetectionHandler = (event) => {
 
-        let currentKey = this.state.bank.filter((el, key) => {
-            console.log(key);
-            return el.id === event.target.id
-        })
-
-        let id = ''; 
-        
-        currentKey.forEach(element => {
-            return id = element.id;
-        })
-
-        this.setState ({
-            currentKey: currentKey,
-            currentId: id
-        })
-    }
-
-    audioActivationHandler = () => {
         if(this.state.isChecked === true) {
-            document.getElementsByClassName("player").play();
+            let currentKey = this.state.bank.filter((el, key) => {
+                return el.id === event.target.id
+            })
+
+            let id = '';
+            let key = ''; 
+            
+            let first = currentKey.forEach(element => {
+                return id = element.id;
+            })
+
+            let second = currentKey.forEach(element => {
+                return key = element.keyCode;
+            })
+
+            this.setState ({
+                currentKey: currentKey,
+                currentId: id,
+                currentKey: key
+            })
+
+            const audio = document.querySelector(`audio[data-key="${key}"]`);
+
+            audio.volume = this.state.valueRange/100;
+            audio.play();
+
         }
     }
+
+    /*Sets if the drum can play or not*/
 
     powerHandler = () => {
         this.setState({
             isChecked: !this.state.isChecked
         })
     }
+
+    /*Sets to two groups of sounds*/
 
     bankSwitchHandler = () => {
         this.setState({
@@ -203,14 +217,22 @@ class App extends Component {
         }
     } 
 
+    /*Sets the input range value*/
+
+    rangeHandler = (event) => {
+        this.setState({
+            valueRange: event.target.value
+        });
+    }
+
     render () {
   
             const bank = this.state.bank.map((keypress, key) => {
                 return <Keypress
                     key={keypress.keyCode}
                     keypress={keypress}
-                    soundDetection={this.soundDetectionHandler}
-                    activated={this.audioActivationHandler}
+                    dataKeyAtt={keypress.keyCode} 
+                    soundDetection={this.soundDetectionHandler.bind(keypress.keyCode)}
                 />
             })
 
@@ -232,6 +254,20 @@ class App extends Component {
                                 </div>
                                 <div className="SoundName">
                                     {this.state.currentId}
+                                </div>
+
+                                <div className="RangeWrapper"> 
+                                    <div for="volume">Volume</div>
+                                    <input 
+                                        type="range" 
+                                        id="start" 
+                                        name="volume"
+                                        min="0" 
+                                        max="100" 
+                                        step="10"
+                                        value={this.state.rangeValue} 
+                                        onChange={this.rangeHandler}
+                                    />
                                 </div>
 
                                 <div className="BankWrapper">

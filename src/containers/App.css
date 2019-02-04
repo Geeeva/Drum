@@ -32,12 +32,14 @@ p {
 }
 
 .DrumWrapper {
-    margin-top: 100px;
+    margin-top: 30vh;
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: auto;
     justify-items: center;
     align-items: center;
+    margin-left: 200px;
+    margin-right: 200px;
 }
 
 .Drum {
@@ -58,7 +60,7 @@ p {
 
 .Drum div:hover, .Drum div:focus {
     color: #000;
-    background-color: salmon;
+    background-color: lightgreen;
 }
 
 .Controlls {
@@ -139,10 +141,15 @@ input:checked + .slider {
 
 .SoundName {
     width: 200px;
+    height: 50px;
+    display: table-cell;
+    vertical-align: middle;
     text-align: center;
     background-color: lightgrey;
-    padding-top: 25px;
-    padding-bottom: 25px;
+}
+
+.RangeWrapper {
+    margin-top: 50px;
     margin-bottom: 50px;
 }
 
@@ -177,8 +184,13 @@ input:checked + .slider {
     }
 
     .container {
-        padding-right: 0px;
-        padding-left: 0px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .DrumWrapper {
+        margin-left: 0px;
+        margin-right: 0px;
     }
 }
 
