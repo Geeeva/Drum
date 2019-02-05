@@ -34,7 +34,7 @@ p {
 .DrumWrapper {
     margin-top: 30vh;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: auto auto;
     grid-template-rows: auto;
     justify-items: center;
     align-items: center;
@@ -191,6 +191,7 @@ input:checked + .slider {
     .DrumWrapper {
         margin-left: 0px;
         margin-right: 0px;
+        grid-template-columns: auto auto;
     }
 }
 

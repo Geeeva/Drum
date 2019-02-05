@@ -166,16 +166,8 @@ class App extends Component {
                 return el.id === event.target.id
             })
 
-            let id = '';
-            let key = ''; 
-            
-            let first = currentKey.forEach(element => {
-                return id = element.id;
-            })
-
-            let second = currentKey.forEach(element => {
-                return key = element.keyCode;
-            })
+            let id = currentKey[0].id;
+            let key = currentKey[0].keyCode;
 
             this.setState ({
                 currentKey: currentKey,
@@ -185,10 +177,42 @@ class App extends Component {
 
             const audio = document.querySelector(`audio[data-key="${key}"]`);
 
-            audio.volume = this.state.valueRange/100;
+            audio.volume = this.state.valueRange / 100;
             audio.play();
+        }
+    }
+
+    soundDetectionKeyboardHandler = (event) => {
+        if(this.state.isChecked === true) {
+            let currentKey = this.state.bank.filter((el, key) => {
+                return el.keyCode === event.target.keyCode;
+            })
+
+            /*let id = currentKey[0].id;
+            let key = currentKey[0].keyCode;*/
+
+            /*this.setState ({
+                currentKey: currentKey,
+                currentId: id,
+                currentKey: key
+            })*/
+
+
+
+            /*const audio = document.querySelector(`audio[data-key="${key}"]`);
+
+            audio.volume = this.state.valueRange / 100;
+            audio.play();*/
+            
+
 
         }
+
+        console.log(event);
+    }
+
+    componentDidMount () {
+        window.addEventListener("keyDown", this.soundDetectionKeyboardHandler);
     }
 
     /*Sets if the drum can play or not*/
@@ -227,14 +251,14 @@ class App extends Component {
 
     render () {
   
-            const bank = this.state.bank.map((keypress, key) => {
-                return <Keypress
-                    key={keypress.keyCode}
-                    keypress={keypress}
-                    dataKeyAtt={keypress.keyCode} 
-                    soundDetection={this.soundDetectionHandler.bind(keypress.keyCode)}
-                />
-            })
+        const bank = this.state.bank.map((keypress, key) => {
+            return <Keypress
+                key={keypress.keyCode}
+                keypress={keypress}
+                dataKeyAtt={keypress.keyCode} 
+                soundDetection={this.soundDetectionHandler.bind(keypress.keyCode)}
+            />
+        })
 
         return ( 
             <div className="App">
@@ -257,7 +281,7 @@ class App extends Component {
                                 </div>
 
                                 <div className="RangeWrapper"> 
-                                    <div for="volume">Volume</div>
+                                    <div htmlFor="volume">Volume</div>
                                     <input 
                                         type="range" 
                                         id="start" 
