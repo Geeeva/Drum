@@ -157,62 +157,46 @@ class App extends Component {
         }
     }
 
-    /*Detects the sound based on event.target element*/
+    /*Detects the sound based on forwarded input*/
 
-    soundDetectionHandler = (event) => {
+    playSound = (code) => {
 
-        if(this.state.isChecked === true) {
-            let currentKey = this.state.bank.filter((el, key) => {
-                return el.id === event.target.id
-            })
-
-            let id = currentKey[0].id;
-            let key = currentKey[0].keyCode;
-
-            this.setState ({
-                currentKey: currentKey,
-                currentId: id,
-                currentKey: key
-            })
-
-            const audio = document.querySelector(`audio[data-key="${key}"]`);
-
-            audio.volume = this.state.valueRange / 100;
-            audio.play();
+        if(!this.state.isChecked) {
+            return;
         }
+
+        let correctKey = this.state.bank.find(k =>
+            k.keyCode === code
+        );
+
+        if(!correctKey) {
+            return;
+        }
+
+        this.setState ({
+            currentId: correctKey.id,
+        })
+
+        const audio = document.querySelector(`audio[data-key="${code}"]`);
+
+        audio.volume = this.state.valueRange / 100;
+        audio.play();
     }
 
-    soundDetectionKeyboardHandler = (event) => {
-        if(this.state.isChecked === true) {
-            let currentKey = this.state.bank.filter((el, key) => {
-                return el.keyCode === event.target.keyCode;
-            })
+    /*Invokes playsound function by forwarding keyCode based on keydown event*/ 
 
-            /*let id = currentKey[0].id;
-            let key = currentKey[0].keyCode;*/
+    keyPressedHandler = (event) => {
+        this.playSound(event.keyCode);
+    }
 
-            /*this.setState ({
-                currentKey: currentKey,
-                currentId: id,
-                currentKey: key
-            })*/
-
-
-
-            /*const audio = document.querySelector(`audio[data-key="${key}"]`);
-
-            audio.volume = this.state.valueRange / 100;
-            audio.play();*/
-            
-
-
-        }
-
-        console.log(event);
+    /*Invokes playsound function by forwarding keyCode based on click event*/
+   
+    keyClickedHandler = (code) => {
+        this.playSound(code);
     }
 
     componentDidMount () {
-        window.addEventListener("keyDown", this.soundDetectionKeyboardHandler);
+        window.addEventListener('keydown', this.keyPressedHandler);
     }
 
     /*Sets if the drum can play or not*/
@@ -256,7 +240,7 @@ class App extends Component {
                 key={keypress.keyCode}
                 keypress={keypress}
                 dataKeyAtt={keypress.keyCode} 
-                soundDetection={this.soundDetectionHandler.bind(keypress.keyCode)}
+                soundDetection={this.keyClickedHandler.bind(this, keypress.keyCode)}
             />
         })
 
