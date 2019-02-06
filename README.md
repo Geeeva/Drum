@@ -14,7 +14,7 @@ Switch bank is used, to switch between two groups of sounds.
 #Steps to run this project:
 
 - **git clone https://github.com/Geeeva/Drum.git**
-- **cd Bild**
+- **cd Drum**
 - **npm install**
 - **npm start**
 
